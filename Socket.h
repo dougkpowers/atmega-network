@@ -52,7 +52,6 @@ class Socket{
   uint16_t listenPort;
   uint16_t localPort;
 
-  char* remoteDomain;
   bool connectOnResolution;
   DNSHandler* dns;
 
@@ -90,7 +89,7 @@ class Socket{
   bool reset(uint32_t seq,uint32_t ack);
   bool resolveIP();
  protected:
-
+  char* remoteDomain;
   virtual uint16_t getApplicationWindowSize();
 
 
