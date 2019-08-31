@@ -3,6 +3,12 @@
 #include <hostutil.h>
 #include "EtherControl.h"
 
+#if ARDUINO >= 100
+#include <Arduino.h> // Arduino 1.0
+#else
+#include <Wprogram.h> // Arduino 0022
+#endif
+
 //#define EMULATE_PACKET_LOSS_PCT 25
 
 #define MAC_SIZE 6
@@ -79,7 +85,6 @@ uint8_t EtherControl::registerTimer(TimerHandler *handler,
       return i+1;
     }
   }//end for
-  
   return 0;
 }
 
@@ -209,7 +214,6 @@ bool EtherControl::sendFrame(const uint8_t *destinationMAC, uint16_t protocol,
 }//send frame
 
 bool EtherControl::processFrame(){
-
   Buffer* recvBuffer = driver->getReceiveBuffer();
 
   uint16_t len = driver->receiveFrame();

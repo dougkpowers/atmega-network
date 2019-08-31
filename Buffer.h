@@ -8,7 +8,7 @@ class Buffer {
  public:
   virtual uint16_t size() = 0;
   
-  virtual bool write(uint16_t offset, void* data, uint16_t len) = 0;
+  virtual bool write(uint16_t offset, const void* data, uint16_t len) = 0;
   virtual bool read(uint16_t offset, void* data, uint16_t len) = 0;
 
   virtual bool copyTo(Buffer* destination, uint16_t dest_start = 0, 
@@ -26,7 +26,7 @@ class Buffer {
   bool write8(uint16_t offset, uint8_t d);
   bool write16(uint16_t offset, uint16_t d);
   bool write32(uint16_t offset, uint32_t d); 
-  bool write(uint16_t offset, char* d);
+  bool write(uint16_t offset, const char* d);
 
   bool writeNet16(uint16_t offset, uint16_t d);
   bool writeNet32(uint32_t offset, uint32_t d);

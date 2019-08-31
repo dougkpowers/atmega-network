@@ -89,7 +89,7 @@ class Socket{
   bool reset(uint32_t seq,uint32_t ack);
   bool resolveIP();
  protected:
-  char* remoteDomain;
+  const char* remoteDomain;
   virtual uint16_t getApplicationWindowSize();
 
 
@@ -104,7 +104,7 @@ class Socket{
 
  public:
   Socket(uint8_t* remoteIP, uint16_t remotePort);
-  Socket(char* server, uint16_t remotePort, DNSHandler* dns);
+  Socket(const char* server, uint16_t remotePort, DNSHandler* dns);
   Socket(uint16_t listenPort);
   ~Socket();
   
@@ -130,7 +130,7 @@ class Socket{
   bool connect();
 
   bool readyToSend();
-  bool send(char* data);
+  bool send(const char* data);
   bool send(uint8_t* data, uint16_t length);
   bool send(uint16_t length);
 

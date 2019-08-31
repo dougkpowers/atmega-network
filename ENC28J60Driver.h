@@ -37,7 +37,7 @@ class ENC28J60Driver: public EthernetDriver {
 
 public:
 
-  ENC28J60Driver(uint8_t* mac,uint8_t csPin = 8);
+  ENC28J60Driver(uint8_t* mac,uint8_t csPin = 10);
   
   Buffer* getSendBuffer();
   Buffer* getReceiveBuffer();

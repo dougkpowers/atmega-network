@@ -27,7 +27,7 @@ uint16_t MemBuffer::size(){
   return this->bufferLength;
 }
 
-bool MemBuffer::write(uint16_t offset, void* data, uint16_t len){
+bool MemBuffer::write(uint16_t offset, const void* data, uint16_t len){
   if (offset + len > this->size()) return false;
   memcpy(this->buffer+offset,data,len);
   return true;

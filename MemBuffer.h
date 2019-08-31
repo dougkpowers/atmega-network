@@ -16,7 +16,7 @@ class MemBuffer: public Buffer {
 
   uint16_t size();
 
-  bool write(uint16_t offset, void* data, uint16_t len);
+  bool write(uint16_t offset, const void* data, uint16_t len);
   bool read(uint16_t offset, void* data, uint16_t len);
 
   uint8_t getBufferType();

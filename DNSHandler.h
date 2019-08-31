@@ -37,13 +37,13 @@ class DNSHandler: TimerHandler,DatagramReceiver {
   uint8_t* dnsIPBackup;
   uint8_t timer;
 
-  bool sendDNSRequest(char* domainName, uint16_t id, uint8_t *dnsServer);
+  bool sendDNSRequest(const char* domainName, uint16_t id, uint8_t *dnsServer);
   void checkAndSetExpiration(uint8_t i);
 
  public:
   DNSHandler(UDPHandler* udpHandler, uint8_t* dnsip, uint8_t cacheCapcity,
 	     uint8_t* dnsipbackup = NULL);
-  uint8_t* resolve(char* domainName, uint8_t* err, bool force = false);
+  uint8_t* resolve(const char* domainName, uint8_t* err, bool force = false);
   void handleTimer(uint8_t index);
   void handleDatagram(uint8_t* sourceIP, uint16_t sourcePort,Buffer *packet);
   void printDNSCache();

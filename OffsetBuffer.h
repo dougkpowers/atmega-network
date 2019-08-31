@@ -18,7 +18,7 @@ class OffsetBuffer : public Buffer {
   bool reinit(Buffer *buffer,uint16_t offset, uint16_t length = 0);
 
   uint16_t size();
-  bool write(uint16_t offset, void* data, uint16_t len);
+  bool write(uint16_t offset, const void* data, uint16_t len);
   bool read(uint16_t offset, void* data, uint16_t len);
 
   bool copyTo(Buffer* destination, uint16_t dest_start = 0, 

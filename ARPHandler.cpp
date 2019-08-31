@@ -72,6 +72,7 @@ bool ARPHandler::sendARPRequest(uint8_t target_protocol_addr[4]){
   if (!etherBuffer->write8(5,4)) return false; // IPv4 addresses are 4 bytes
   if (!etherBuffer->writeNet16(6,ARP_REQUEST)) return false;  // 1 is request
   if (!etherBuffer->write(8,sender_hardware_addr,6)) return false; //sender mac
+
   if (!etherBuffer->write(14,ipAddress,4)) return false;           //sender ip
 
  //target hw address

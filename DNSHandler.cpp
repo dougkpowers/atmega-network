@@ -59,7 +59,7 @@ DNSHandler::DNSHandler(UDPHandler* udpHandler,uint8_t *dnsip,
 /*                               P R I V A T E                               */
 /* ========================================================================= */
 // returns false if the UDP buffer is not large enough for the request
-bool DNSHandler::sendDNSRequest(char* domainName, uint16_t id, 
+bool DNSHandler::sendDNSRequest(const char* domainName, uint16_t id, 
 				uint8_t* dnsServer){
 
   if (strlen(domainName) > 255){
@@ -101,7 +101,7 @@ bool DNSHandler::sendDNSRequest(char* domainName, uint16_t id,
   //    0         (note that we end with a 0 length for the root domain)
   uint16_t hostLengthOffset = DNS_HEADER_LENGTH;
 
-  char* nextChar = domainName;
+  const char* nextChar = domainName;
   uint8_t hostLength = 0;
   while (*nextChar != '\0'){
     if (*nextChar == '.'){//toggle to the next host
@@ -155,7 +155,7 @@ bool DNSHandler::sendDNSRequest(char* domainName, uint16_t id,
 /* ========================================================================= */
 /*                                P U B L I C                                */
 /* ========================================================================= */
-uint8_t* DNSHandler::resolve(char* domainName, uint8_t* err, bool force){
+uint8_t* DNSHandler::resolve(const char* domainName, uint8_t* err, bool force){
 
   //first, see if this domainName is in our cache
   for(int i=0; i<cacheSize; i++){

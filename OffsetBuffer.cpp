@@ -56,7 +56,7 @@ uint16_t OffsetBuffer::getRootBufferOffset(){
 }
 
 #include <Arduino.h>
-bool OffsetBuffer::write(uint16_t start, void* data, uint16_t len){
+bool OffsetBuffer::write(uint16_t start, const void* data, uint16_t len){
 
   //make sure we are within the bounds of the offset buffer
   if (start+len > this->size()) return false;

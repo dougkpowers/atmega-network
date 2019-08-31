@@ -2,7 +2,7 @@
 #include <string.h>
 #include "Buffer.h"
 
-bool Buffer::write(uint16_t offset, char* d){
+bool Buffer::write(uint16_t offset, const char* d){
   return this->write(offset,d,strlen(d));
 }
 

@@ -29,7 +29,7 @@ uint16_t ENC28J60Buffer::size(){
 }
 
 #include <stdio.h>
-bool ENC28J60Buffer::write(uint16_t offset, void* data, uint16_t len){
+bool ENC28J60Buffer::write(uint16_t offset, const void* data, uint16_t len){
 
   uint16_t address = this->bufferStart+this->payloadPointer+offset;
   

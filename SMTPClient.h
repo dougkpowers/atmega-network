@@ -23,7 +23,7 @@ class SMTPClient: public Socket{
   char recvLine[40];
 
   void onLineReceived(char* line);
-  bool checkMessage(char*,char*);
+  bool checkMessage(const char*,const char*);
   bool checkCode(char*,uint16_t);
 
  protected:

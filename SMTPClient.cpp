@@ -49,6 +49,8 @@ bool SMTPClient::email(char* from, char* to, char* subject, char* body){
   this->body = body;
 
   this->connect();
+
+  return true;
 }
 
 uint8_t SMTPClient::getStatus(){
@@ -111,14 +113,14 @@ bool SMTPClient::checkCode(char* line, uint16_t code){
   return false;
 }
 
-bool SMTPClient::checkMessage(char* line, char* message){
+bool SMTPClient::checkMessage(const char* line, const char* message){
   char* start = strstr(line," ");
   if (start == NULL) return false;
   start++;
 
   char* finish = strstr(start," ");
   if (finish == NULL)
-    finish = line + strlen(line);
+    finish = (char*)line + strlen(line);
   
   if ((finish - start) != strlen(message)) return false;
 

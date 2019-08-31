@@ -37,10 +37,11 @@ Socket::Socket(uint8_t* remoteIP, uint16_t remotePort){
   this->listenPort = 0;
   memcpy(this->remoteIP,remoteIP,4);
   this->remotePort = remotePort;
+  this->remoteDomain = NULL;
   init();
 }//end constructor
 
-Socket::Socket(char* server, uint16_t remotePort, DNSHandler* dns){
+Socket::Socket(const char* server, uint16_t remotePort, DNSHandler* dns){
   this->listenPort = 0;
   this->remoteDomain = server;
   memset(this->remoteIP,0,4);
@@ -258,7 +259,7 @@ bool Socket::connect(){
 
   //establish a local port
   this->localPort = tcp->getIPHandler()->getPort();
-  
+
   //send a SYN to start the handshake
   if(!sendSegment(SYN,0)) return false;
   attempts = 1;
@@ -353,7 +354,7 @@ bool Socket::send(uint8_t* data, uint16_t length){
   return send(length);
 }
 
-bool Socket::send(char* data){
+bool Socket::send(const char* data){
 #ifdef DEBUG
   printf(data);
 #endif

@@ -5,9 +5,12 @@
 
 class HTTPClient: public Socket{
   
-  char* path;
+  const char* path;
+  const char* method;
+  const char* body;
+  const char* contentType;
   uint32_t bytes;
-  uint32_t startTime;
+  bool sendInProgress;
 
  protected:
   void onEstablished();
@@ -17,10 +20,11 @@ class HTTPClient: public Socket{
   void onReset(bool resetByRemoteHost);
 
  public:
-  HTTPClient(uint8_t* ip, uint16_t port = 80, char* path = "/");
-  HTTPClient(char* server, DNSHandler* dns, 
-	     uint16_t port = 80, char* path = "/");
-
+  HTTPClient(uint8_t* ip, uint16_t port = 80);
+  HTTPClient(const char* server, DNSHandler* dns, uint16_t port = 80);
+  bool send(const char* method, const char* path, 
+            const char* contentType, const char* body);
+  bool readyToSend();
 };
 
 #endif

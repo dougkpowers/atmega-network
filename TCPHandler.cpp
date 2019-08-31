@@ -161,7 +161,6 @@ bool TCPHandler::registerSocket(Socket* socket){
 	}
 	return true;
       }
-
       // back out since the socket registration failed
 
       //remove the socket from our array
@@ -169,7 +168,7 @@ bool TCPHandler::registerSocket(Socket* socket){
       return false;
     }
   }//end for
-  
+
   //we're out of room folks
   return false;  
 }

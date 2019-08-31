@@ -126,7 +126,7 @@ PacketHandler* IPHandler::getProtocolHandler(uint8_t ipProtocol){
 /*                      T I M E R    R E G I S T R A T I O N                 */
 /* ========================================================================= */
 uint8_t IPHandler::registerTimer(TimerHandler *handler, uint16_t millisDelay){
-  etherControl->registerTimer(handler,millisDelay);
+  return etherControl->registerTimer(handler,millisDelay);
 }
 
 void IPHandler::unregisterTimer(uint8_t index){
