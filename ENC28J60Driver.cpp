@@ -78,7 +78,7 @@ ENC28J60Driver::ENC28J60Driver(uint8_t* macaddr, uint8_t csPin):
   disableChip();
 
   writeOp(ENC28J60_SOFT_RESET, 0, ENC28J60_SOFT_RESET);
-  delay(2); // errata B7/2
+  delay(20); // errata B7/2
 
   while (!readOp(ENC28J60_READ_CTRL_REG, ESTAT) & ESTAT_CLKRDY)
     ;
@@ -113,6 +113,7 @@ ENC28J60Driver::ENC28J60Driver(uint8_t* macaddr, uint8_t csPin):
   writeOp(ENC28J60_BIT_FIELD_SET, ECON1, ECON1_RXEN);
   
   this->revision = readRegByte(EREVID);
+
   // microchip forgot to step the number on the silcon when they
   // released the revision B7. 6 is now rev B7. We still have
   // to see what they do when they release B8. At the moment
@@ -324,13 +325,14 @@ bool ENC28J60Driver::copy(uint16_t src_addr_start,
 void ENC28J60Driver::sendFrame(uint16_t len) {
 
   //while we're current transmitting, simply wait
-  while (readOp(ENC28J60_READ_CTRL_REG, ECON1) & ECON1_TXRTS)
+  while (readOp(ENC28J60_READ_CTRL_REG, ECON1) & ECON1_TXRTS){
     //but if there was a tx error
     if (readRegByte(EIR) & EIR_TXERIF) { 
       //reset all transmission logic
       writeOp(ENC28J60_BIT_FIELD_SET, ECON1, ECON1_TXRST);
       writeOp(ENC28J60_BIT_FIELD_CLR, ECON1, ECON1_TXRST);
     }
+  }
 
   //set the packet end
   writeReg(ETXND, TXSTART_INIT+len);
@@ -346,7 +348,6 @@ void ENC28J60Driver::sendFrame(uint16_t len) {
 
 uint16_t ENC28J60Driver::receiveFrame() {
     uint16_t len = 0;
-
     //if we have more than zero packets in the buffer
     if (readRegByte(EPKTCNT) > 0) {
       writeReg(ERDPT, gNextPacketPtr);
@@ -361,7 +362,7 @@ uint16_t ENC28J60Driver::receiveFrame() {
 
       //ERDPT will have automatically advanced since we've 
       //read the header, so we can set our offset value
-      //to th new value of ERDPT
+      //to the new value of ERDPT
       uint16_t offset = readReg(ERDPT);
       recvBuffer->setPayloadPointer(offset);
       
